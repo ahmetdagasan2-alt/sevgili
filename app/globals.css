@@ -133,9 +133,40 @@
   }
   html {
     @apply font-sans;
+    /* Mobile browsers paint a blue box over tapped links/cards; we have our own states. */
+    -webkit-tap-highlight-color: transparent;
   }
   h1, h2, h3 {
     @apply font-heading tracking-tight;
+  }
+}
+
+/* Page-transition loader: invisible for quick navigations, fades in after 150ms. */
+@keyframes loader-appear {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes loader-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.loader-delayed {
+  opacity: 0;
+  animation: loader-appear 200ms ease-out 150ms forwards;
+}
+.loader-bar {
+  animation: loader-slide 1.1s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader-bar {
+    animation: none;
+    transform: none;
+    width: 100%;
   }
 }
 
